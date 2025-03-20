@@ -1,4 +1,5 @@
 #include "stdio.h"
+#include "stdlib.h"
 
 typedef struct {
 	double x, y;
@@ -24,7 +25,7 @@ typedef struct {
 typedef struct {
 	vec2_t center;
 	double radius;
-} circ_t;
+} circle_t;
 
 typedef struct {
 	unsigned int width, height; 
@@ -46,7 +47,7 @@ unsigned int lines_cnt = 0;
 ray_t rays[MAX_SHAPES];
 unsigned int rays_cnt = 0;
 
-circ_t circles[MAX_SHAPES];
+circle_t circles[MAX_SHAPES];
 unsigned int circles_cnt = 0;
 
 void append_point(point_t p) {
@@ -90,11 +91,11 @@ void append_circle(circle_t p) {
 }
 
 vec2_t vec2_pts(point_t a, point_t b) {
-	return vec2_t{.x = b.x - a.x, .y = b.y - a.y};
+	return (vec2_t){.x = b.x - a.x, .y = b.y - a.y};
 }
 
 vec2_t vec2_segm(segment_t s) {
-	return vec2_t{.x = s.b.x - s.a.x, .y = s.b.y - s.a.y};
+	return (vec2_t){.x = s.b.x - s.a.x, .y = s.b.y - s.a.y};
 }
 
 line_t line_pts(point_t a, point_t b) {
@@ -114,7 +115,7 @@ line_t line_segm(segment_t s) {
 }
 
 line_t line_par_pt(line_t l, point_t p) {
-	return line_t{.a = l.a, .b = l.b, .c = -(p.x*l.a + p.y*l.b)};
+	return (line_t){.a = l.a, .b = l.b, .c = -(p.x*l.a + p.y*l.b)};
 }
 
 int main(int argc, char* argv[]) {
